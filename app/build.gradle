@@ -1,0 +1,73 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation libs.junit.jupiter
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.27.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.19.0'
+    implementation group: 'com.puppycrawl.tools', name: 'checkstyle', version: '10.12.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation libs.guava
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.11.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: '7.11.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '7.11.1'
+    implementation group: 'me.jvt.cucumber', name: 'reporting-plugin', version: '7.3.0'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.5'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    mainClass = 'coding.challenge.automation.App'
+}
+
+checkstyle {
+    checkstyleMain.source = "src/main/"
+    checkstyleTest.source = "src/test/"
+}
+
+checkstyleMain {
+    source = 'src/main/java'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task executeFeatures(type: Test) {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            systemProperties project.properties.subMap(["envId", "browser"])
+            mainClass = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'me.jvt.cucumber.report.PrettyReports:reports',
+                    '--plugin', 'html:reports/cucumber-reports/cucumber-reports.html',
+                    '--plugin', 'json:build/cucumber/cucumber.json',
+                    '--plugin', 'rerun:build/cucumber/rerun.txt',
+                    '--glue', 'baselabs',
+                    '--tags', project.findProperty("cucumberOptions")
+            ]
+        }
+    }
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+    finalizedBy("checkstyleMain", "checkstyleTest")
+}
