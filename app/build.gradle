@@ -48,6 +48,9 @@ configurations {
 
 task executeFeatures(type: Test) {
     dependsOn assemble, testClasses
+    doFirst {
+        setHeadlessMode()
+    }
     doLast {
         javaexec {
             systemProperties project.properties.subMap(["envId", "browser"])
@@ -67,7 +70,15 @@ task executeFeatures(type: Test) {
 }
 
 
+
 tasks.named('test') {
     useJUnitPlatform()
     finalizedBy("checkstyleMain", "checkstyleTest")
 }
+def setHeadlessMode() {
+    def headlessValue = (project.findProperty("headlessMode") ?: 'false').toString().toLowerCase()
+    ant.propertyfile(file: "${project.rootDir}/app/src/main/resources/webdriver.properties") {
+        entry(key: "webdriver.headless.mode", value: headlessValue)
+    }
+}
+
