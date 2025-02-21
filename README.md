@@ -113,6 +113,54 @@ For debugging and detailed information about test execution, log files are gener
 ## Project Structure
 
 The project is structured as follows:
+## Project Structure
+
+```
+CODING-CHALLENGE-AUTOMATION/
+├── app/
+│   └── src/
+│       └── main/
+│       │   ├── java/
+│       │   │   └── baselabs/
+│       │   │       ├── framework/
+│       │   │       │   ├── selenium/
+│       │   │       │   │   ├── DriverConfig.java
+│       │   │       │   │   └── DriverManager.java
+│       │   │       │   ├── CredentialsManager.java
+│       │   │       │
+│       │   │       ├── ui/
+│       │   │       │   └── pages/
+│       │   │       │   │    ├── HomePage.java
+│       │   │       │   │    └── LoginPage.java
+│       │   │       │   ├── BasePage.java
+│       │   │       │   └── PageTransporter.java
+│       │   │       ├── utils/
+│       │   │       │   └── LoggerManager.java
+│       │   └── resources/
+│       │       ├── environments.properties
+│       │       ├── log4j2.properties
+│       │       └── webdriver.properties
+│       └── test/
+│           ├── java/
+│           │   └── baselabs/
+│           │       ├── hooks/
+│           │       │   └── ScenarioHooks.java
+│           │       └── steps/
+│           │           └── LoginSteps.java
+│           └── resources/
+│               └── features/
+│                   └── ui/
+│                       └── login/
+│                           └── login.feature
+├── build.gradle
+├── gradle/
+├── .gitattributes
+├── .gitignore
+├── gradlew
+├── gradlew.bat
+├── README.md
+└── settings.gradle
+```
 
 *   **`src/main/java`**: Contains the main application code, including:
     *   `framework`: Selenium WebDriver setup and configuration.
