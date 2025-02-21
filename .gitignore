@@ -31,3 +31,6 @@ build
 .gradle/
 build/
 bin/
+reports/
+vscode/
+.vscode/
