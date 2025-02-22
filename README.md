@@ -26,6 +26,12 @@ Follow these steps to set up and run the automated tests:
     ```bash
     cd coding-challenge-automation
     ```
+2.  **Build the Project using Gradle Wrapper:**
+    *
+        ```bash
+        gradlew build
+        ```
+    This command will download dependencies (if it's the first time) and build the project
 
 2.  **Navigate to the Project Directory**:
     Ensure you are in the root directory of the cloned project.
