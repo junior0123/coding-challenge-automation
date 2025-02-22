@@ -74,33 +74,33 @@ Follow these steps to set up and run the automated tests:
         ```
     *   **Run Tests with Specific Tags**: You can target specific scenarios or features using Cucumber tags. For example, to run only `@SmokeTest` scenarios:
         ```bash
-        ./gradlew clean executeFeatures -PcucumberOptions="@SmokeTest"
+        gradle clean executeFeatures -PcucumberOptions="@SmokeTest"
         ```
         or to run a specific scenario with tag `@BL-T001`:
         ```bash
-        ./gradlew clean executeFeatures -PcucumberOptions="@BL-T001"
+        gradle clean executeFeatures -PcucumberOptions="@BL-T001"
         ```
 
     *   **Select Browser**: You can specify the browser to use for test execution using the `-Pbrowser` property. Supported browsers are `chrome`, `edge`, and `firefox`. For example, to run tests in Edge:
         ```bash
-        ./gradlew clean executeFeatures -PcucumberOptions="@UI" -Pbrowser="edge"
+        gradle clean executeFeatures -PcucumberOptions="@UI" -Pbrowser="edge"
         ```
 
     *   **Run in Headless Mode**: To execute tests in headless mode, set the `-PheadlessMode` property to `true`:
         ```bash
-        ./gradlew clean executeFeatures -PcucumberOptions="@UI" -Pbrowser="chrome" -PheadlessMode="true"
+        gradle clean executeFeatures -PcucumberOptions="@UI" -Pbrowser="chrome" -PheadlessMode="true"
         ```
         To run in non-headless mode (visible browser), set it to `false` or omit the property (default is `false`).
 
     *   **Example Command with Browser and Headless Mode**: To run UI tests in Edge browser in headless mode:
         ```bash
-        ./gradlew clean executeFeatures -PcucumberOptions="@UI" -Pbrowser="edge" -PheadlessMode="True"
+        gradle clean executeFeatures -PcucumberOptions="@UI" -Pbrowser="edge" -PheadlessMode="True"
         ```
 
 5.  **Checkstyle**:
     This project uses Checkstyle to maintain code quality and coding standards. You can run Checkstyle checks using the following Gradle tasks:
     ```bash
-    ./gradlew checkstyleMain checkstyleTest
+    gradle checkstyleMain checkstyleTest
     ```
     Checkstyle reports are generated in `app\build\reports\checkstyle\`.
 
